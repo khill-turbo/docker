@@ -1,0 +1,109 @@
+Docker
+Docker tutorial and hello world
+https://www.youtube.com/watch?v=YFl2mCHdv24
+
+Basic Information
+	
+Command
+
+Information about docker installed on your machine
+	
+
+docker info
+
+List docker images
+	
+
+docker images
+
+Delete docker image	docker rmi IMAGE IMAGE
+
+List docker containers
+	
+
+docker ps -a
+
+Stop and Delete docker container	
+
+docker rm -f <CONTAINER ID>
+
+
+Use Docker to build my docker file into an image
+This tutorial was pretty useful: https://docs.docker.com/compose/gettingstarted/
+The docker compose will contain a link to your docker build file (the image is the built file) which should be stored in the DTR
+Basic Commands
+	
+Command
+Build the docker file to create the docker image "hello-world"	
+
+docker build -t hello-world .
+Run the docker image "hello-world"	
+
+docker run -p 80:80 hello-world
+
+Run the docker image "hello-world" with mounted volume.
+This will allow changes changes you make to be reflected automatically in the URL.	
+
+docker run -p 80:80 -v ~/Desktop/docker/src:/var/www/html hello-world
+
+(/Users/khill1/Desktop/docker/src didn't work so used ~/Desktop/docker/src)
+Add docker-compose to .profile 
+
+export PATH=${PATH}:/Users/khill1/Library/Group\ Containers/group.com.docker/bin/docker-compose
+
+Run Docker Container
+In the same directory as docker-compose.yml run:
+docker-compose up
+
+
+
+
+Put image in DTR
+Create new repository - DTR and store it in there - https://registry.docker.org.company.com/repositories vs https://ucp.docker.org.company.com/#/dashboard
+Do Docker compose tutorial 
+Example: using the docker image it pulls mysql image for the database (docker-compose.yml) also tell it which containers to talk to.
+Attempt #1 to push to DTR
+Got docker URL from https://server15.am.company.com/view/All/job/Build_and_Publish_Docker_Image/6/console
+
+khill1$ sudo docker tag composetest_web:latest uslvedockerreg01.am.company.com:5000/composetest_web:latest
+
+khill1$ sudo docker push uslvedockerreg01.am.company.com:5000/composetest_web:latest
+
+The push refers to a repository [uslvedockerreg01.am.company.com:5000/composetest_web]
+
+Get https://server01.am.company.com:5000/v2/: EOF
+Attempt #2 to push to DTR
+
+khill1$ sudo docker tag composetest_web:latest registry.docker.org.company.com:5000/composetest_web:latest
+TO DO: try without sudo
+
+Password:
+
+khill1$ sudo docker push registry.docker.org.company.com:5000/composetest_web:latest
+
+The push refers to a repository [registry.docker.org.sony.com:5000/composetest_web]
+
+Get https://registry.docker.org.sony.com:5000/v2/: dial tcp 43.142.144.11:5000: getsockopt: connection refused
+Attempt #3 to push to DTR - success
+
+khill1$ docker tag composetest_web:latest khill1/composetest_web:1
+
+khill1$ docker images
+REPOSITORY                                          TAG                 IMAGE ID            CREATED             SIZE
+khill1/composetest_web                              1                   99c29443ca59        5 days ago          93.8MB
+khill1/composetest_web                              latest              99c29443ca59        5 days ago          93.8MB
+composetest_web                                     latest              99c29443ca59        5 days ago          93.8MB
+khill1$ docker push khill1/composetest_web:1
+
+The push refers to a repository [docker.io/khill1/composetest_web]
+041d6b3b2ce3: Pushed 
+7580a2533d40: Pushed 
+a81bacfb27f1: Pushed 
+4272b30fb6e6: Pushed 
+08d54e60d50e: Pushed 
+1d2140d2445e: Pushed 
+2b0fb280b60d: Pushed 
+
+1: digest: sha256:f43af544872dfd0ebd8bbdce754b134ec879499cb48ec0047af93db6ba52d9be size: 1786
+
+https://docs.docker.com/compose/
