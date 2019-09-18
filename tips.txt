@@ -65,7 +65,7 @@ Example: using the docker image it pulls mysql image for the database (docker-co
 Attempt #1 to push to DTR
 Got docker URL from https://server15.am.company.com/view/All/job/Build_and_Publish_Docker_Image/6/console
 
-khill1$ sudo docker tag composetest_web:latest uslvedockerreg01.am.company.com:5000/composetest_web:latest
+khill1$ sudo docker tag composetest_web:latest server01.am.company.com:5000/composetest_web:latest
 
 khill1$ sudo docker push uslvedockerreg01.am.company.com:5000/composetest_web:latest
 
@@ -81,9 +81,9 @@ Password:
 
 khill1$ sudo docker push registry.docker.org.company.com:5000/composetest_web:latest
 
-The push refers to a repository [registry.docker.org.sony.com:5000/composetest_web]
+The push refers to a repository [registry.docker.org.company.com:5000/composetest_web]
 
-Get https://registry.docker.org.sony.com:5000/v2/: dial tcp 43.142.144.11:5000: getsockopt: connection refused
+Get https://registry.docker.org.company.com:5000/v2/: dial tcp 43.142.144.11:5000: getsockopt: connection refused
 Attempt #3 to push to DTR - success
 
 khill1$ docker tag composetest_web:latest khill1/composetest_web:1
